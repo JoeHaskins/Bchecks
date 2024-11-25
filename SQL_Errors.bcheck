@@ -1,0 +1,64 @@
+metadata:
+ language: v2-beta
+ name: "SQL Error Detection"
+ description: "Detects SQL errors in responses."
+ author: "Joe Haskins"
+ tags: "errors, SQL"
+
+given response then
+
+ if {latest.response} matches "org.hibernate.QueryException:.+" then
+      report issue and continue:
+        severity: medium
+        confidence: certain
+        detail: "Java Hibernate SQL error detected in the response."
+        remediation: "Review and check for contents."
+ end if
+
+ if {latest.response} matches "PreparedStatementCallback;.+" then
+      report issue and continue:
+        severity: medium
+        confidence: certain
+        detail: "SQL error detected in the response."
+        remediation: "Review and check for contents."
+ end if
+
+ if {latest.response} matches "You have an error in your SQL syntax;.+" then
+      report issue and continue:
+        severity: medium
+        confidence: certain
+        detail: "SQL error detected in the response."
+        remediation: "Review and check for contents."
+ end if
+
+ if {latest.response} matches "org.springframework.jdbc.BadSqlGrammarException:.+" then
+      report issue and continue:
+        severity: medium
+        confidence: certain
+        detail: "SQL error detected in the response."
+        remediation: "Review and check for contents."
+ end if
+
+ if {latest.response} matches "ORA-[0-9]+:.+" then
+      report issue and continue:
+        severity: medium
+        confidence: certain
+        detail: "SQL error detected in the response."
+        remediation: "Review and check for contents."
+ end if
+
+ if {latest.response} matches "SQLSTATE\[[0-9]+\]:.+" then
+      report issue and continue:
+        severity: medium
+        confidence: certain
+        detail: "SQL error detected in the response."
+        remediation: "Review and check for contents."
+ end if
+
+ if {latest.response} matches "java.sql.SQLIntegrityConstraintViolationException:.+" then
+      report issue and continue:
+        severity: medium
+        confidence: certain
+        detail: "SQL error detected in the response."
+        remediation: "Review and check for contents."
+ end if
